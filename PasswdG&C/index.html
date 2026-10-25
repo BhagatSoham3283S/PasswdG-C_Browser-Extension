@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>PassGuard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="extension-popup">
+  <header class="popup-header">
+    <div class="brand-mark" aria-hidden="true">◇</div>
+    <div><h1>PassGuard</h1><p>Private password assistant</p></div>
+    <span class="secure-label">LOCAL</span>
+  </header>
+  <main>
+    <section class="site-context" aria-label="Current website">
+      <span class="site-icon" aria-hidden="true">◎</span>
+      <div><span class="eyebrow">PASSWORD FOR</span><strong id="site-name">Current website</strong></div>
+      <span id="site-status" class="site-status">Ready</span>
+    </section>
+
+    <section class="generator-card" aria-labelledby="generator-title">
+      <div class="section-heading"><div><span class="step">01</span><h2 id="generator-title">Generate</h2></div><button id="regenerate" class="icon-button" type="button" title="Generate another password" aria-label="Generate another password">↻</button></div>
+      <div class="password-box"><code id="password-output" aria-live="polite">Generating…</code><button id="copy-password" class="copy-button" type="button" aria-label="Copy generated password">Copy</button></div>
+      <div class="strength-row"><div class="meter"><span id="meter-fill"></span></div><strong id="strength-label">Checking…</strong></div>
+      <p id="check-status" class="check-status" aria-live="polite">Checking strength and breach history…</p>
+      <div class="settings-row"><label for="length">Length <output id="length-value">20</output></label><input id="length" type="range" min="16" max="40" value="20"></div>
+    </section>
+
+    <section class="decision-card" aria-labelledby="decision-title">
+      <span class="step">02</span><div class="decision-copy"><h2 id="decision-title">Use this password?</h2><p>Accept to fill the current page and save it in your encrypted vault.</p></div>
+      <button id="accept-password" class="primary-button" type="button" disabled>Accept &amp; save</button>
+      <p id="action-status" class="action-status" aria-live="polite"></p>
+    </section>
+
+    <details class="vault-panel" id="vault-panel">
+      <summary><span>Encrypted password vault</span><span id="vault-state" class="vault-state">Locked</span></summary>
+      <div class="vault-content">
+        <p id="vault-help">Set a strong vault password to encrypt passwords stored on this device.</p>
+        <label for="master-password">Vault password</label>
+        <input id="master-password" type="password" autocomplete="new-password" placeholder="At least 10 characters">
+        <div class="vault-actions"><button id="vault-toggle" class="secondary-button" type="button">Create vault</button><button id="lock-vault" class="text-button" type="button" hidden>Lock</button></div>
+        <div id="saved-list" class="saved-list"></div>
+      </div>
+    </details>
+  </main>
+  <footer><span>Only a 5-character hash prefix is sent for breach checks.</span><a href="https://haveibeenpwned.com/Passwords" target="_blank" rel="noreferrer">HIBP</a></footer>
+  <script src="generator.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
